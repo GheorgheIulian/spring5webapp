@@ -14,7 +14,7 @@ public class Book {
     private String title;
     private String isbn;
     @ManyToMany
-    @JoinTable(name = "author_book",joinColumns(name = "book_id"),
+    @JoinTable(name = "author_book",joinColumns=@JoinColumn( name = "book_id"),
         inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors;
     public Set<Author> getAuthors() {
@@ -49,5 +49,28 @@ public class Book {
         this.isbn = isbn;
     }
 
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Book )) return false;
 
+        Book book = (Book) o;
+
+        return getId() != null ? getId().equals(book.getId()) : book.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", isbn='" + isbn + '\'' +
+                ", authors=" + authors +
+                '}';
+    }
 }

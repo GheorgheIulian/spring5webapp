@@ -12,6 +12,7 @@ public class Author {
     private Long id;
     private String firstName;
     private String lastName;
+
     @ManyToMany(mappedBy = "authors")
     private Set<Book> books;
 
@@ -46,5 +47,30 @@ public class Author {
     public String getFirstName() {
         return firstName;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Author)) return false;
+
+        Author author = (Author) o;
+        return getId() != null ? getId().equals(author.getId()) : author.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Author{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", books=" + books +
+                '}';
+    }
 }
+
 
